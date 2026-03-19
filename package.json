@@ -3,17 +3,25 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "lint": "eslint . --ext .vue,.js,.mjs --ignore-path .gitignore",
+        "lint:fix": "eslint . --ext .vue,.js,.mjs --fix --ignore-path .gitignore",
+        "format": "prettier --write resources/"
     },
     "devDependencies": {
+        "@rushstack/eslint-patch": "^1.16.1",
         "@tailwindcss/vite": "^4.0.0",
         "autoprefixer": "^10.4.27",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
+        "eslint": "^10.0.3",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-vue": "^10.8.0",
         "laravel-echo": "^2.3.1",
         "laravel-vite-plugin": "^2.1.0",
         "postcss": "^8.5.8",
+        "prettier": "^3.8.1",
         "pusher-js": "^8.4.2",
         "tailwindcss": "^4.2.2",
         "vite": "^7.0.7"
