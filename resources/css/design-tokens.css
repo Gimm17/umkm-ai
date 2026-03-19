@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --color-primary: #FF6B6B;
+  --color-primary-soft: #FFE8E8;
+  --color-secondary: #4ECDC4;
+  --color-accent: #FFE66D;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #FFF5F5 0%, #F0FFF4 50%, #EFF6FF 100%);
+  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #FFF9F0 100%);
+  --gradient-sidebar: linear-gradient(180deg, #FFF5F5 0%, #F8FFFC 100%);
+  --gradient-primary: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+  --gradient-ai: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Surfaces */
+  --color-bg: #FFFAF7;
+  --color-surface: #FFFFFF;
+  --color-border: #FFE8D6;
+
+  /* Text */
+  --color-text: #2D3748;
+  --color-text-muted: #A0AEC0;
+
+  /* Channels */
+  --color-whatsapp: #25D366;
+  --color-instagram-start: #f09433;
+  --color-instagram-end: #bc1888;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadow */
+  --shadow-card: 0 4px 20px rgba(255, 107, 107, 0.08);
+  --shadow-hover: 0 8px 30px rgba(255, 107, 107, 0.15);
+
+  /* Font */
+  --font-base: 'Plus Jakarta Sans', sans-serif;
+}

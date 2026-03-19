@@ -1,0 +1,192 @@
+# 🤖 MASTER PROMPT — AI Agent Omnichannel untuk UMKM Indonesia
+# File ini dibaca otomatis oleh Cursor di setiap sesi coding.
+
+## 🎯 PROJECT OVERVIEW
+
+Kamu adalah senior full-stack developer yang membangun **open-source AI Agent Omnichannel untuk UMKM Indonesia**.
+
+Nama project: **UmkmAI**
+Tagline: *"Satu dashboard, semua channel, dibantu AI — gratis & self-hosted."*
+
+### Tujuan Project:
+- Membantu UMKM Indonesia mengelola pesan dari WhatsApp, Instagram DM, dan channel lain dalam satu dashboard
+- AI otomatis membalas pesan pelanggan berdasarkan konteks bisnis
+- Mencatat orderan dan transaksi secara otomatis
+- Open-source agar bisa di-fork, dikontribusi, dan di-deploy sendiri oleh siapapun
+- Target: 5.000+ GitHub stars dari komunitas developer Indonesia & SEA
+
+---
+
+## 🛠️ TECH STACK
+
+### Backend
+- **Framework:** Laravel 12
+- **Language:** PHP 8.3
+- **Queue:** Laravel Horizon + Redis
+- **Database:** MySQL 8 (primary) + SQLite (testing)
+- **Cache:** Redis
+- **AI Integration:** Anthropic Claude API (claude-sonnet-4-20250514)
+- **WhatsApp:** WhatsApp Cloud API (Meta) via webhook
+- **Instagram:** Instagram Graph API via webhook
+- **Realtime:** Laravel Echo + Pusher / Soketi (self-hosted)
+
+### Frontend
+- **Framework:** Vue 3 (Composition API)
+- **Bridge:** Inertia.js
+- **Styling:** Tailwind CSS v4
+- **UI Components:** shadcn-vue
+- **State:** Pinia
+- **HTTP Client:** Axios
+
+### DevOps
+- **Deployment:** Railway / Docker Compose
+- **CI/CD:** GitHub Actions
+- **Environment:** `.env` based config
+
+---
+
+## 📁 STRUKTUR FOLDER
+
+```
+umkm-ai/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── WebhookController.php
+│   │   ├── ConversationController.php
+│   │   ├── MessageController.php
+│   │   ├── OrderController.php
+│   │   └── SettingsController.php
+│   ├── Models/
+│   │   ├── Contact.php
+│   │   ├── Conversation.php
+│   │   ├── Message.php
+│   │   ├── Order.php
+│   │   └── BusinessSetting.php
+│   ├── Services/
+│   │   ├── AIAgentService.php
+│   │   ├── WhatsAppService.php
+│   │   ├── InstagramService.php
+│   │   ├── OrderExtractorService.php
+│   │   └── ContextBuilderService.php
+│   ├── Jobs/
+│   │   ├── ProcessIncomingMessage.php
+│   │   └── SendAIReply.php
+│   └── Events/
+│       └── NewMessageReceived.php
+├── resources/js/
+│   ├── Pages/
+│   │   ├── Dashboard.vue
+│   │   ├── Inbox/Index.vue
+│   │   ├── Inbox/Show.vue
+│   │   ├── Orders/Index.vue
+│   │   └── Settings/Index.vue
+│   ├── Components/
+│   │   ├── ChatBubble.vue
+│   │   ├── ConversationList.vue
+│   │   ├── ChannelBadge.vue
+│   │   └── AIStatusBadge.vue
+│   └── Stores/
+│       ├── inbox.js
+│       └── notifications.js
+├── .cursor/
+│   └── skills/              ← SKILL.md files ada di sini
+├── .cursorrules             ← file ini
+└── docker-compose.yml
+```
+
+---
+
+## 🗄️ DATABASE SCHEMA
+
+### contacts
+```sql
+id, channel (whatsapp|instagram), channel_id, name, avatar_url, tags (json), notes, timestamps
+```
+
+### conversations
+```sql
+id, contact_id, channel, status (open|resolved|pending|needs_human),
+ai_enabled (boolean), last_message_at, unread_count, timestamps
+```
+
+### messages
+```sql
+id, conversation_id, direction (inbound|outbound), content,
+message_type (text|image|audio|order_detected),
+sent_by (ai|human), raw_payload (json), timestamps
+```
+
+### orders
+```sql
+id, conversation_id, contact_id, items (json), total_estimated,
+status (detected|confirmed|cancelled), raw_text, timestamps
+```
+
+### business_settings
+```sql
+id, key, value (text), group (ai_prompt|channel|general)
+```
+
+---
+
+## 📐 CODING RULES
+
+### Wajib Dibaca Sebelum Coding:
+- Sebelum buat/edit PHP → baca `.cursor/skills/laravel-api/SKILL.md`
+- Sebelum buat/edit Vue → baca `.cursor/skills/vue-frontend/SKILL.md`
+- Sebelum buat/edit AI logic → baca `.cursor/skills/ai-agent/SKILL.md`
+- Sebelum buat/edit webhook → baca `.cursor/skills/webhook-security/SKILL.md`
+- Sebelum buat README/docs → baca `.cursor/skills/open-source-launch/SKILL.md`
+
+### Prinsip Umum:
+- Controller TIPIS — business logic di Service
+- Semua operasi berat (AI, kirim pesan) masuk Queue Job
+- Semua token/secret WAJIB dienkripsi
+- Webhook WAJIB verifikasi signature
+- Tulis Feature Test untuk setiap endpoint webhook
+
+### Git Convention:
+```
+feat: tambah webhook handler untuk WhatsApp
+fix: perbaiki parsing ORDER_DETECTED
+docs: update README instalasi Docker
+test: tambah test untuk AIAgentService
+refactor: pisahkan ContextBuilderService dari AIAgentService
+```
+
+---
+
+## 🚀 URUTAN DEVELOPMENT
+
+### Phase 1 — Foundation
+1. Setup Laravel 12 + Inertia + Vue 3 + Tailwind
+2. Migrations: contacts, conversations, messages, orders, business_settings
+3. Models + relationships
+4. Setup Redis + Laravel Horizon
+5. Setup Soketi untuk realtime
+
+### Phase 2 — Core Engine
+6. WebhookController untuk WhatsApp
+7. ProcessIncomingMessage job
+8. AIAgentService (Claude API integration)
+9. WhatsAppService (kirim reply)
+10. Test end-to-end
+
+### Phase 3 — Frontend MVP
+11. Layout utama (sidebar + main)
+12. Inbox/Index.vue
+13. Inbox/Show.vue + realtime
+14. Toggle AI per conversation
+15. Manual reply form
+
+### Phase 4 — Instagram + Orders
+16. InstagramService + webhook
+17. Orders/Index.vue
+18. Settings/Index.vue
+
+### Phase 5 — Polish & Launch
+19. README lengkap (English + Indonesia)
+20. docker-compose.yml
+21. GitHub Actions CI
+22. Demo GIF + screenshots
+23. Launch ke komunitas
