@@ -40,26 +40,30 @@ class AIAgentService
     }
 
     /**
-     * Panggil Claude API.
+     * Panggil AI provider (Claude, Gemini, Kimi, atau GLM).
      */
     private function callClaude(array $context, int $attempt): string
     {
         try {
-            $response = Http::withToken(config('services.anthropic.key'))
-                ->withHeaders(['anthropic-version' => '2023-06-01'])
-                ->timeout(30)
-                ->post('https://api.anthropic.com/v1/messages', [
-                    'model' => 'claude-sonnet-4-20250514',
-                    'max_tokens' => 1024,
-                    'system' => $context['system'],
-                    'messages' => $context['messages'],
-                ]);
+            $provider = AIProviderFactory::getProvider();
 
-            if ($response->failed()) {
-                throw new \Exception("Claude API error: {$response->status()}");
+            // Build context messages for provider
+            $messages = [];
+            foreach ($context['messages'] as $msg) {
+                $messages[] = [
+                    'role' => $msg['role'],
+                    'content' => $msg['content'],
+                ];
             }
 
-            return $response->json('content.0.text');
+            // Call provider
+            $response = $provider->generate(
+                $context['system'],
+                end($messages)['content'], // Last message is the current one
+                array_slice($messages, 0, -1) // All messages except the last one (history)
+            );
+
+            return $response;
 
         } catch (\Exception $e) {
             if ($attempt < self::MAX_RETRIES) {
@@ -67,7 +71,7 @@ class AIAgentService
                 return $this->callClaude($context, $attempt + 1);
             }
 
-            Log::error('AIAgentService: Claude API gagal setelah retry', [
+            Log::error('AIAgentService: AI provider gagal setelah retry', [
                 'conversation_id' => $context['conversation_id'],
                 'error' => $e->getMessage(),
             ]);

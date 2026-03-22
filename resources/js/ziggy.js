@@ -61,31 +61,21 @@ export const Ziggy = {
             uri: 'inbox/{conversation}',
             methods: ['GET', 'HEAD'],
         },
-        'orders.index': {
-            uri: 'orders',
-            methods: ['GET', 'HEAD'],
-        },
-        'settings.index': {
-            uri: 'settings',
-            methods: ['GET', 'HEAD'],
-        },
     },
-    defaultParameters: {
-    },
+    defaultParameters: {},
 };
 
 Ziggy.defaultLocation = window.location.href;
 
-// @ts-ignore
 export class Router {
-    constructor(name: string, params: Record<string, any>, absolute: boolean, location?: string) {
+    constructor(name, params, absolute, location) {
         this.name = name;
         this.params = params;
         this.absolute = absolute;
         this.location = location || Ziggy.defaultLocation;
     }
 
-    get(name: string, params: Record<string, any> = {}, absolute = false) {
+    get(name, params = {}, absolute = false) {
         const route = Ziggy.namedRoutes[name];
         if (!route) {
             throw new Error(`Route "${name}" not found`);
@@ -110,8 +100,7 @@ export class Router {
     }
 }
 
-// @ts-ignore
-export const route = (name: string, params: Record<string, any> = {}, absolute = false) => {
+export const route = (name, params = {}, absolute = false) => {
     const router = new Router(name, params, absolute);
     return router.get(name, params, absolute);
 };

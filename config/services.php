@@ -55,6 +55,23 @@ return [
         'url' => 'https://api.anthropic.com/v1/messages',
     ],
 
+    // AI Provider Configuration
+    'ai' => [
+        'provider' => env('AI_PROVIDER', 'gemini'), // gemini, kimi, glm, or anthropic
+    ],
+
+    'gemini' => [
+        'api_key' => env('GEMINI_API_KEY'),
+    ],
+
+    'kimi' => [
+        'api_key' => env('KIMI_API_KEY'),
+    ],
+
+    'glm' => [
+        'api_key' => env('GLM_API_KEY'),
+    ],
+
     'webhook_skip_verify' => env('WEBHOOK_SKIP_VERIFY', false),
 
 ];
