@@ -42,6 +42,7 @@ class SendAIReply implements ShouldQueue
                 Log::info('AI reply rate limited, skipping', [
                     'conversation_id' => $this->conversation->id,
                 ]);
+
                 return;
             }
 
@@ -53,7 +54,7 @@ class SendAIReply implements ShouldQueue
             // Get appropriate channel service
             $channelService = $this->getChannelService();
 
-            if (!$channelService) {
+            if (! $channelService) {
                 throw new \Exception("Unsupported channel: {$this->conversation->channel}");
             }
 
@@ -102,7 +103,7 @@ class SendAIReply implements ShouldQueue
      */
     private function getChannelService(): ?ChannelServiceInterface
     {
-        return match($this->conversation->channel) {
+        return match ($this->conversation->channel) {
             'whatsapp' => app(WhatsAppService::class),
             'instagram' => app(InstagramService::class),
             default => null,

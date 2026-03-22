@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateSettingsRequest;
 use App\Models\BusinessSetting;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class SettingsController extends Controller
@@ -105,7 +106,7 @@ class SettingsController extends Controller
             $accessToken = config('services.whatsapp.access_token');
             $baseUrl = config('services.whatsapp.url');
 
-            $response = \Illuminate\Support\Facades\Http::withToken($accessToken)
+            $response = Http::withToken($accessToken)
                 ->timeout(10)
                 ->get("{$baseUrl}/{$phoneNumberId}");
 
@@ -141,7 +142,7 @@ class SettingsController extends Controller
             $accessToken = config('services.instagram.access_token');
             $baseUrl = config('services.instagram.url');
 
-            $response = \Illuminate\Support\Facades\Http::withToken($accessToken)
+            $response = Http::withToken($accessToken)
                 ->timeout(10)
                 ->get("{$baseUrl}/me");
 
@@ -168,4 +169,3 @@ class SettingsController extends Controller
         }
     }
 }
-

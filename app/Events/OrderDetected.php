@@ -5,7 +5,6 @@ namespace App\Events;
 use App\Models\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -30,7 +29,7 @@ class OrderDetected implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('conversation.' . $this->order->conversation_id),
+            new PrivateChannel('conversation.'.$this->order->conversation_id),
             new Channel('orders'),
         ];
     }
@@ -43,4 +42,3 @@ class OrderDetected implements ShouldBroadcast
         return 'order.detected';
     }
 }
-

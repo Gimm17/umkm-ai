@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Jobs\SendAIReply;
 use App\Models\Contact;
 use App\Models\Conversation;
 use App\Models\Message;
@@ -10,13 +9,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class ProcessIncomingMessage implements ShouldQueue
 {
     use Queueable;
 
     private int $maxRetries = 3;
+
     private int $cacheDuration = 24 * 3600; // 24 hours
 
     /**
@@ -38,11 +37,12 @@ class ProcessIncomingMessage implements ShouldQueue
             // 1. Parse payload untuk mendapatkan message data
             $messageData = $this->parsePayload();
 
-            if (!$messageData) {
+            if (! $messageData) {
                 Log::info('Bukan pesan, skip processing', [
                     'channel' => $this->channel,
                     'payload' => $this->payload,
                 ]);
+
                 return;
             }
 
@@ -55,6 +55,7 @@ class ProcessIncomingMessage implements ShouldQueue
                     'message_id' => $messageId,
                     'channel' => $this->channel,
                 ]);
+
                 return;
             }
 
@@ -126,7 +127,7 @@ class ProcessIncomingMessage implements ShouldQueue
         $value = data_get($changes, 'value');
         $message = data_get($value, 'messages.0');
 
-        if (!$message) {
+        if (! $message) {
             return null;
         }
 
@@ -150,20 +151,20 @@ class ProcessIncomingMessage implements ShouldQueue
         // Instagram Graph API webhook structure
         $entry = data_get($this->payload, 'entry.0');
 
-        if (!$entry) {
+        if (! $entry) {
             return null;
         }
 
         // Instagram messaging webhook
         $messaging = data_get($entry, 'messaging.0');
 
-        if (!$messaging) {
+        if (! $messaging) {
             return null;
         }
 
         $message = data_get($messaging, 'message');
 
-        if (!$message) {
+        if (! $message) {
             return null;
         }
 
@@ -265,7 +266,7 @@ class ProcessIncomingMessage implements ShouldQueue
      */
     private function mapMessageType(string $channelType): string
     {
-        return match($channelType) {
+        return match ($channelType) {
             'text', 'message' => 'text',
             'image', 'photo' => 'image',
             'audio', 'voice' => 'audio',
@@ -275,6 +276,6 @@ class ProcessIncomingMessage implements ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->channel . '-' . md5(json_encode($this->payload));
+        return $this->channel.'-'.md5(json_encode($this->payload));
     }
 }

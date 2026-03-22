@@ -33,10 +33,11 @@ class WebhookController extends Controller
         // 1. Verifikasi signature SEBELUM apapun
         $signature = $request->header('X-Hub-Signature-256');
 
-        if (!$this->verifySignature($request->getContent(), $signature, 'whatsapp')) {
+        if (! $this->verifySignature($request->getContent(), $signature, 'whatsapp')) {
             Log::warning('Webhook WA: signature tidak valid', [
                 'ip' => $request->ip(),
             ]);
+
             return response('Forbidden', 403);
         }
 
@@ -71,10 +72,11 @@ class WebhookController extends Controller
         // 1. Verifikasi signature SEBELUM apapun
         $signature = $request->header('X-Hub-Signature-256');
 
-        if (!$this->verifySignature($request->getContent(), $signature, 'instagram')) {
+        if (! $this->verifySignature($request->getContent(), $signature, 'instagram')) {
             Log::warning('Webhook IG: signature tidak valid', [
                 'ip' => $request->ip(),
             ]);
+
             return response('Forbidden', 403);
         }
 
@@ -90,17 +92,17 @@ class WebhookController extends Controller
      */
     private function verifySignature(string $payload, ?string $signature, string $channel): bool
     {
-        if (!$signature) {
+        if (! $signature) {
             return false;
         }
 
         // Skip verification in development if WEBHOOK_SKIP_VERIFY is true
-        if (!app()->isProduction() && config('services.webhook_skip_verify', false)) {
+        if (! app()->isProduction() && config('services.webhook_skip_verify', false)) {
             return true;
         }
 
         $secret = config("services.{$channel}.app_secret");
-        $expected = 'sha256=' . hash_hmac('sha256', $payload, $secret);
+        $expected = 'sha256='.hash_hmac('sha256', $payload, $secret);
 
         return hash_equals($expected, $signature);
     }

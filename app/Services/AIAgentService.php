@@ -4,12 +4,12 @@ namespace App\Services;
 
 use App\Models\Conversation;
 use App\Models\Message;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class AIAgentService
 {
     private const MAX_RETRIES = 2;
+
     private const MAX_HISTORY = 10;
 
     public function __construct(
@@ -68,6 +68,7 @@ class AIAgentService
         } catch (\Exception $e) {
             if ($attempt < self::MAX_RETRIES) {
                 sleep(1); // backoff singkat
+
                 return $this->callClaude($context, $attempt + 1);
             }
 
@@ -91,6 +92,7 @@ class AIAgentService
         if (preg_match($pattern, $raw, $matches)) {
             $replyText = trim(preg_replace($pattern, '', $raw));
             $orderData = json_decode($matches[1], true);
+
             return [$replyText, $orderData];
         }
 

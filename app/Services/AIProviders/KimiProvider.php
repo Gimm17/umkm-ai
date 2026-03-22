@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 class KimiProvider implements AIProviderInterface
 {
     private string $apiKey;
+
     private string $baseUrl = 'https://api.moonshot.cn/v1';
+
     private string $model = 'moonshot-v1-8k'; // Free model
 
     public function __construct()
@@ -24,7 +26,7 @@ class KimiProvider implements AIProviderInterface
             $messages = [];
 
             // Add system prompt
-            if (!empty($systemPrompt)) {
+            if (! empty($systemPrompt)) {
                 $messages[] = [
                     'role' => 'system',
                     'content' => $systemPrompt,
@@ -91,6 +93,6 @@ class KimiProvider implements AIProviderInterface
 
     public function isConfigured(): bool
     {
-        return !empty($this->apiKey);
+        return ! empty($this->apiKey);
     }
 }

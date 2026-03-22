@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 class GLMProvider implements AIProviderInterface
 {
     private string $apiKey;
+
     private string $baseUrl = 'https://open.bigmodel.cn/api/paas/v4';
+
     private string $model = 'glm-4-flash'; // Free model
 
     public function __construct()
@@ -24,7 +26,7 @@ class GLMProvider implements AIProviderInterface
             $messages = [];
 
             // Add system prompt
-            if (!empty($systemPrompt)) {
+            if (! empty($systemPrompt)) {
                 $messages[] = [
                     'role' => 'system',
                     'content' => $systemPrompt,
@@ -91,6 +93,6 @@ class GLMProvider implements AIProviderInterface
 
     public function isConfigured(): bool
     {
-        return !empty($this->apiKey);
+        return ! empty($this->apiKey);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Conversation;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,7 +15,7 @@ Route::prefix('inbox')->group(function () {
 
     Route::get('/{conversation}', function ($conversationId) {
         // Fetch conversation data
-        $conversation = \App\Models\Conversation::with('contact')->findOrFail($conversationId);
+        $conversation = Conversation::with('contact')->findOrFail($conversationId);
 
         return Inertia::render('Inbox/Show', [
             'conversation' => $conversation,

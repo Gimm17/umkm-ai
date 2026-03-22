@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Illuminate\Support\Facades\Http;
 
@@ -28,12 +28,12 @@ try {
 
     if ($response->successful()) {
         echo "✅ BERHASIL! Pesan terkirim ke {$testNumber}\n";
-        echo "Response: " . $response->body() . "\n";
+        echo 'Response: '.$response->body()."\n";
     } else {
         echo "❌ GAGAL! Status: {$response->status()}\n";
-        echo "Error: " . $response->body() . "\n";
+        echo 'Error: '.$response->body()."\n";
     }
 
 } catch (Exception $e) {
-    echo "❌ EXCEPTION: " . $e->getMessage() . "\n";
+    echo '❌ EXCEPTION: '.$e->getMessage()."\n";
 }

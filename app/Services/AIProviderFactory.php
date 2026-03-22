@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Services\Contracts\AIProviderInterface;
 use App\Services\AIProviders\GeminiProvider;
-use App\Services\AIProviders\KimiProvider;
 use App\Services\AIProviders\GLMProvider;
+use App\Services\AIProviders\KimiProvider;
+use App\Services\Contracts\AIProviderInterface;
 use Illuminate\Support\Facades\Log;
 
 class AIProviderFactory
@@ -17,10 +17,10 @@ class AIProviderFactory
     {
         $provider = config('services.ai.provider', 'gemini');
 
-        return match($provider) {
-            'gemini' => new GeminiProvider(),
-            'kimi' => new KimiProvider(),
-            'glm' => new GLMProvider(),
+        return match ($provider) {
+            'gemini' => new GeminiProvider,
+            'kimi' => new KimiProvider,
+            'glm' => new GLMProvider,
             'anthropic' => self::getAnthropicProvider(),
             default => self::getFirstAvailableProvider(),
         };
@@ -32,14 +32,15 @@ class AIProviderFactory
     private static function getFirstAvailableProvider(): AIProviderInterface
     {
         $providers = [
-            'gemini' => new GeminiProvider(),
-            'kimi' => new KimiProvider(),
-            'glm' => new GLMProvider(),
+            'gemini' => new GeminiProvider,
+            'kimi' => new KimiProvider,
+            'glm' => new GLMProvider,
         ];
 
         foreach ($providers as $name => $provider) {
             if ($provider->isConfigured()) {
                 Log::info("Using AI provider: {$name}");
+
                 return $provider;
             }
         }
@@ -62,9 +63,9 @@ class AIProviderFactory
     public static function getAvailableProviders(): array
     {
         $providers = [
-            'gemini' => new GeminiProvider(),
-            'kimi' => new KimiProvider(),
-            'glm' => new GLMProvider(),
+            'gemini' => new GeminiProvider,
+            'kimi' => new KimiProvider,
+            'glm' => new GLMProvider,
         ];
 
         $available = [];

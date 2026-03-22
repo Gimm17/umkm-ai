@@ -4,13 +4,14 @@ require __DIR__.'/vendor/autoload.php';
 $app = require_once __DIR__.'/bootstrap/app.php';
 
 try {
-    $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+    $kernel = $app->make(Kernel::class);
     $kernel->bootstrap();
-} catch (\Exception $e) {
+} catch (Exception $e) {
     $app->boot();
 }
 
 use App\Models\BusinessSetting;
+use Illuminate\Contracts\Console\Kernel;
 
 $settings = [
     ['key' => 'store_name', 'value' => 'Toko Sepatu Keren', 'group' => 'general'],

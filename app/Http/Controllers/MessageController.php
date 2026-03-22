@@ -64,7 +64,7 @@ class MessageController extends Controller
             // Get appropriate channel service
             $channelService = $this->getChannelService($conversation);
 
-            if (!$channelService) {
+            if (! $channelService) {
                 throw new \Exception("Unsupported channel: {$conversation->channel}");
             }
 
@@ -74,7 +74,7 @@ class MessageController extends Controller
                 $request->content
             );
 
-            if (!$sentMessage) {
+            if (! $sentMessage) {
                 throw new \Exception('Failed to send message after retries');
             }
 
@@ -111,11 +111,10 @@ class MessageController extends Controller
      */
     private function getChannelService(Conversation $conversation): ?ChannelServiceInterface
     {
-        return match($conversation->channel) {
+        return match ($conversation->channel) {
             'whatsapp' => app(WhatsAppService::class),
             'instagram' => app(InstagramService::class),
             default => null,
         };
     }
 }
-

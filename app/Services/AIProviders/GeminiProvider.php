@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 class GeminiProvider implements AIProviderInterface
 {
     private string $apiKey;
+
     private string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta';
+
     private string $model = 'gemini-1.5-flash'; // Free model
 
     public function __construct()
@@ -24,12 +26,12 @@ class GeminiProvider implements AIProviderInterface
             $contents = [];
 
             // Add system prompt
-            if (!empty($systemPrompt)) {
+            if (! empty($systemPrompt)) {
                 $contents[] = [
                     'role' => 'user',
                     'parts' => [
-                        ['text' => "System: " . $systemPrompt]
-                    ]
+                        ['text' => 'System: '.$systemPrompt],
+                    ],
                 ];
             }
 
@@ -39,8 +41,8 @@ class GeminiProvider implements AIProviderInterface
                 $contents[] = [
                     'role' => $role,
                     'parts' => [
-                        ['text' => $msg['content']]
-                    ]
+                        ['text' => $msg['content']],
+                    ],
                 ];
             }
 
@@ -48,8 +50,8 @@ class GeminiProvider implements AIProviderInterface
             $contents[] = [
                 'role' => 'user',
                 'parts' => [
-                    ['text' => $userMessage]
-                ]
+                    ['text' => $userMessage],
+                ],
             ];
 
             $response = Http::timeout(30)
@@ -96,6 +98,6 @@ class GeminiProvider implements AIProviderInterface
 
     public function isConfigured(): bool
     {
-        return !empty($this->apiKey);
+        return ! empty($this->apiKey);
     }
 }
