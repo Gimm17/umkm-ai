@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\BroadcastServiceProvider::class,
     ])
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);

@@ -1,43 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@theme {
+  --color-surface-container: #F0FFF4;
+  --color-on-primary: #FFFFFF;
+  --color-on-error-container: #822727;
+  --color-secondary-container: #E6FFFA;
+  --color-on-secondary-fixed: #2C7A7B;
+  --color-inverse-primary: #FF8585;
+  --color-on-tertiary-container: #128C7E;
+  --color-error-dim: #b92902;
+  --color-inverse-surface: #2D3748;
+  --color-tertiary: #25D366;
+  --color-surface-bright: #FFF5F5;
+  --color-outline: #FFE8D6;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-error: #E53E3E;
+  --color-surface-dim: #F8FFFC;
+  --color-on-surface-variant: #718096;
+  --color-on-primary-container: #FF6B6B;
+  --color-primary-dim: #992027;
+  --color-secondary-fixed-dim: #E6FFFA;
+  --color-surface-container-low: #FFF9F0;
+  --color-on-error: #FFFFFF;
+  --color-tertiary-fixed-dim: #C6F6D5;
+  --color-primary: #FF6B6B;
+  --color-primary-container: #FFE8E8;
+  --color-surface-container-highest: #FFE8D6;
+  --color-on-surface: #2D3748;
+  --color-surface: #FFFFFF;
+  --color-tertiary-dim: #66369c;
+  --color-on-tertiary: #FFFFFF;
+  --color-on-tertiary-fixed: #22543D;
+  --color-primary-fixed-dim: #FFE8E8;
+  --color-tertiary-container: #DCF8E6;
+  --color-on-secondary-fixed-variant: #234E52;
+  --color-on-background: #2D3748;
+  --color-surface-container-high: #EFF6FF;
+  --color-surface-variant: #F8FFFC;
+  --color-background: #FFF5F5;
+  --color-inverse-on-surface: #F7FAFC;
+  --color-surface-tint: #FF6B6B;
+  --color-tertiary-fixed: #F0FFF4;
+  --color-error-container: #FED7D7;
+  --color-on-tertiary-fixed-variant: #276749;
+  --color-secondary-fixed: #F0FFF4;
+  --color-primary-fixed: #FFF5F5;
+  --color-secondary: #4ECDC4;
+  --color-secondary-dim: #8f2a47;
+  --color-on-primary-fixed-variant: #C53030;
+  --color-on-secondary-container: #2D3748;
+  --color-on-secondary: #FFFFFF;
+  --color-outline-variant: #A0AEC0;
+  --color-on-primary-fixed: #FF6B6B;
+
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-label: "Plus Jakarta Sans", sans-serif;
+
+  --radius-xl: 3rem;
+
+  --shadow-coral: 0 4px 20px rgba(255, 107, 107, 0.08);
+  --shadow-bolt: 0 10px 25px rgba(255, 107, 107, 0.3);
+}
 
 :root {
-  /* Colors */
-  --color-primary: #FF6B6B;
-  --color-primary-soft: #FFE8E8;
-  --color-secondary: #4ECDC4;
-  --color-accent: #FFE66D;
-
-  /* Gradients */
-  --gradient-hero: linear-gradient(135deg, #FFF5F5 0%, #F0FFF4 50%, #EFF6FF 100%);
-  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #FFF9F0 100%);
-  --gradient-sidebar: linear-gradient(180deg, #FFF5F5 0%, #F8FFFC 100%);
-  --gradient-primary: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
-  --gradient-ai: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-  /* Surfaces */
-  --color-bg: #FFFAF7;
-  --color-surface: #FFFFFF;
-  --color-border: #FFE8D6;
-
-  /* Text */
-  --color-text: #2D3748;
-  --color-text-muted: #A0AEC0;
-
-  /* Channels */
-  --color-whatsapp: #25D366;
-  --color-instagram-start: #f09433;
-  --color-instagram-end: #bc1888;
-
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-pill: 9999px;
-
-  /* Shadow */
-  --shadow-card: 0 4px 20px rgba(255, 107, 107, 0.08);
-  --shadow-hover: 0 8px 30px rgba(255, 107, 107, 0.15);
-
-  /* Font */
-  --font-base: 'Plus Jakarta Sans', sans-serif;
+  /* Legacy mapping if any components relied on the core css vars */
+  --border: #FFE8D6;
+  --background: #FFF5F5;
+  --foreground: #2D3748;
 }
