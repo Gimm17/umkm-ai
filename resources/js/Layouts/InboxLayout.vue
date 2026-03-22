@@ -26,10 +26,15 @@ const navigation = [
       class="w-full md:w-80 lg:w-96 flex flex-col bg-gradient-to-b from-[#FFF5F5] to-[#F8FFFC] border-r border-[#FFE8D6] transition-all duration-300"
     >
       <!-- Logo & Header -->
-      <div class="px-6 py-5 border-b border-[#FFE8D6]">
-        <div class="flex flex-col gap-1.5 justify-center">
-          <img src="/logo.png" alt="UmkmAI Logo" class="h-10 w-auto object-contain" />
-          <p class="text-[10px] text-gray-500 font-medium tracking-wide">AI untuk UMKM-mu 🚀</p>
+      <div class="px-6 py-4 border-b border-[#FFE8D6]">
+        <div class="flex items-center gap-3">
+          <img :src="'/logo.png'" alt="UmkmAI Logo" class="h-12 w-auto object-contain drop-shadow-sm" />
+          <div class="flex flex-col justify-center">
+            <h1 class="text-xl font-bold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] bg-clip-text text-transparent leading-tight mt-1">
+              UmkmAI
+            </h1>
+            <p class="text-[10px] text-gray-500 font-medium tracking-wide">AI untuk UMKM-mu 🚀</p>
+          </div>
         </div>
       </div>
 

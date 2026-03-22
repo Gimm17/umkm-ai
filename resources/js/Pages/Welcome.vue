@@ -9,7 +9,10 @@ import { Head, Link } from '@inertiajs/vue3';
         <!-- Top Navigation Bar -->
         <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm shadow-[#FF6B6B]/5">
             <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
-                <img src="/logo.png" alt="UmkmAI Logo" class="h-8 w-auto object-contain" />
+                <div class="flex items-center gap-3">
+                    <img :src="'/logo.png'" alt="UmkmAI Logo" class="h-10 w-auto object-contain drop-shadow-sm" />
+                    <span class="text-2xl font-extrabold tracking-tighter text-primary">UmkmAI</span>
+                </div>
                 <div class="hidden md:flex items-center gap-8 font-medium text-sm tracking-tight">
                     <a class="text-primary font-bold hover:scale-105 transition-transform" href="#">Features</a>
                     <a class="text-slate-600 hover:text-primary hover:scale-105 transition-transform" href="#">Solutions</a>
@@ -180,7 +183,10 @@ import { Head, Link } from '@inertiajs/vue3';
         <footer class="w-full rounded-t-[2.5rem] mt-20 bg-[#FFF9F0] bg-gradient-to-b from-white to-[#FFF9F0]">
             <div class="flex flex-col md:flex-row justify-between items-center px-10 py-12 gap-6 w-full max-w-7xl mx-auto">
                 <div class="space-y-4 text-center md:text-left">
-                    <img src="/logo.png" alt="UmkmAI Logo" class="h-10 w-auto object-contain mx-auto md:mx-0" />
+                    <div class="flex items-center justify-center md:justify-start gap-3">
+                        <img :src="'/logo.png'" alt="UmkmAI Logo" class="h-12 w-auto object-contain drop-shadow-sm" />
+                        <span class="text-xl font-black text-primary">UmkmAI</span>
+                    </div>
                     <p class="font-['Plus_Jakarta_Sans'] text-xs font-medium uppercase tracking-wider text-slate-500">
                         © {{ new Date().getFullYear() }} UmkmAI. Empowering Indonesian SMEs.
                     </p>
