@@ -13,7 +13,10 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         const pinia = createPinia();
 
-        return createApp({ render: () => h(App, props) })
+        const vueApp = createApp({ render: () => h(App, props) });
+        vueApp.config.globalProperties.route = window.route;
+        
+        return vueApp
             .use(plugin)
             .use(pinia)
             .mount(el);
